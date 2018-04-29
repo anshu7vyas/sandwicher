@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
@@ -64,9 +64,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-        mBinding.originTv.setText((sandwich.getPlaceOfOrigin() == null) ? "" : sandwich.getPlaceOfOrigin());
-        mBinding.alsoKnownTv.setText((sandwich.getAlsoKnownAs() == null) ? "" : TextUtils.join(",", sandwich.getAlsoKnownAs()));
-        mBinding.alsoKnownTv.setText((sandwich.getIngredients() == null) ? "" : TextUtils.join(",", sandwich.getIngredients()));
-        mBinding.descriptionTv.setText((sandwich.getDescription() == null) ? "" : sandwich.getDescription());
+        mBinding.originTv.setText((sandwich.getPlaceOfOrigin().equals("")) ? "N/A" : sandwich.getPlaceOfOrigin());
+        mBinding.alsoKnownTv.setText(
+                (sandwich.getAlsoKnownAs().isEmpty()) ? "N/A" : TextUtils.join(", ", sandwich.getAlsoKnownAs()));
+        mBinding.ingredientsTv.setText(
+                (sandwich.getIngredients().isEmpty()) ? "N/A" : TextUtils.join(", ", sandwich.getIngredients()));
+        mBinding.descriptionTv.setText((sandwich.getDescription().equals("")) ? "N/A" : sandwich.getDescription());
     }
 }
